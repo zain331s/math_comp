@@ -95,7 +95,7 @@ output_size = len(np.unique(y))
 X_train_tensor, y_train_tensor, X_test_tensor, y_test_tensor = train_split(X, y)
 
 model = SimpleNeuralNetwork(input_size, output_size)
-train(X_train_tensor, y_train_tensor, model, num_epochs=200, filename="model.pth")
+train(X_train_tensor, y_train_tensor, model, num_epochs=2000, filename="model.pth")
 
 # Evaluate Model
 train_acc = compute_accuracy(model, X_train_tensor, y_train_tensor)
