@@ -102,3 +102,26 @@ train_acc = compute_accuracy(model, X_train_tensor, y_train_tensor)
 test_acc = compute_accuracy(model, X_test_tensor, y_test_tensor)
 print(f"Training Accuracy: {train_acc:.4f}")
 print(f"Test Accuracy: {test_acc:.4f}")
+
+
+# Example input data
+example_data = [[1, 3, 5, 5, 5, 6]]  # Replace with the feature values for your example
+
+# Scale the input data using the same scaler used during training
+scaler = StandardScaler()
+scaler.fit(X)  # Fit the scaler to the full dataset
+example_data_scaled = scaler.transform(example_data)
+
+# Convert the scaled data to a PyTorch tensor
+example_data_tensor = torch.tensor(example_data_scaled, dtype=torch.float32).to(device)
+
+# Make predictions
+model.eval()  # Set the model to evaluation mode
+with torch.no_grad():
+    output = model(example_data_tensor)
+    _, predicted_class = torch.max(output, 1)  # Get the predicted class index
+
+# Interpret the result
+class_names = ["Bronze", "Silver", "Gold"]  # Replace with your actual class names if different
+print(f"Predicted class index: {predicted_class.item()}")
+print(f"Predicted class: {class_names[predicted_class.item()]}")
